@@ -1,17 +1,21 @@
 // load and configure the ToneJS sample player
-var soundURL = "https://cdn.jsdelivr.net/gh/zenpho/tjs/gonnarain-clip.mp3";
 var player = new Tone.Player();
-player.loop = true;
-player.load(soundURL, function() {
+
+var soundURL = "https://cdn.jsdelivr.net/gh/zenpho/tjs/gonnarain-clip.mp3";
+var loader = new Tone.Player();
+loader.load(soundURL, function() {
   console.log("loaded " + soundURL);
+
+  player._buffer = loader._buffer.slice(3, 5);
+  player.loop = true;
+  player.start();
 
   //Load the buffer into the waveform GUI.
   //Any WebAudio AudioBuffer can be loaded.
   //For Tone.js, these are found in _buffers
   waveform1.setBuffer(player._buffer._buffer);
-  waveform1.select(0, 10);
+  waveform1.select(0, 2000);
   waveform1.init();
-  player.start();
 });
 
 // connect the signal chain
@@ -28,4 +32,4 @@ nx.onload = function() {
   });
 };
 
-console.log("2018nov08-1541");
+console.log("2018nov08-1600");
